@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>KimyoLab – kimyo test platformasi</title><meta name="color-scheme" content="light dark">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f8f5;--card:#fff;--ink:#0d2b30;--mut:#587176;--line:#d5e4df;--a:#5b3df5;--b:#ff3d81;--c:#ffc233;--ok:#12a36b;--bad:#e5384f;--sh:0 10px 30px rgba(13,43,48,.08);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1d21;--card:#10292e;--ink:#e8f4f1;--mut:#8fb0b3;--line:#1f4249;--sh:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1d21;--card:#10292e;--ink:#e8f4f1;--mut:#8fb0b3;--line:#1f4249;--sh:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Onest,system-ui,sans-serif}
+h1,h2,h3{font-family:Unbounded,Onest,sans-serif;line-height:1.15;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--a);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:1080px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.logo{font:800 20px Unbounded,sans-serif;margin-right:auto}.logo i{font-style:normal;color:var(--b)}
+nav{display:flex;gap:4px;overflow-x:auto;max-width:100%}
+nav button{border:0;background:none;padding:8px 14px;border-radius:99px;cursor:pointer;color:var(--mut);font-weight:500;white-space:nowrap}
+nav button.on{background:var(--ink);color:var(--bg)}
+.who{display:flex;gap:6px;align-items:center}
+select,input,textarea{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;width:100%}
+.who select{width:auto;max-width:150px}
+.ic{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:8px 11px;cursor:pointer}
+main{max-width:1080px;margin:auto;padding:20px 16px 60px}
+section{display:none}section.on{display:block}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;padding:28px 0}
+.hero h1{font-size:clamp(30px,5.4vw,56px);font-weight:800}
+.hero h1 span{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);max-width:46ch;font-size:18px}
+.btn{border:0;border-radius:14px;padding:12px 20px;font-weight:700;cursor:pointer;background:var(--a);color:#fff;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}.btn.alt{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}.btn.pink{background:var(--b)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.mol{position:relative;aspect-ratio:1;max-width:420px;width:100%;margin:auto}
+.mol svg{width:100%;height:100%;overflow:visible}
+.orb{transform-origin:200px 200px;animation:spin 14s linear infinite}.orb.r{animation-duration:22s;animation-direction:reverse}
+.atom{animation:fl 4s ease-in-out infinite}.atom.h2{animation-delay:-2s}
+.bub{animation:rise 6s linear infinite;opacity:0}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes fl{50%{transform:translateY(-10px)}}
+@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-120px);opacity:0}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0 28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--sh)}
+.stat b{font:800 32px Unbounded,sans-serif;display:block}.stat span{color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+h2{font-size:clamp(22px,3.4vw,32px);margin-bottom:16px}
+label{display:block;font-weight:500;margin:12px 0 5px;color:var(--mut);font-size:14px}
+.q-img{max-width:100%;max-height:260px;border-radius:14px;margin:6px 0 12px;display:block}
+.q-t{font:600 clamp(18px,2.6vw,24px) Unbounded,sans-serif;margin:10px 0 16px}
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:13px 16px;margin:8px 0;cursor:pointer;transition:.15s}
+.opt:hover:not(:disabled){border-color:var(--a);transform:translateX(4px)}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--card));animation:pop .4s}
+.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--card));animation:shake .35s}
+@keyframes pop{50%{transform:scale(1.03)}}@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.prog{height:8px;background:var(--line);border-radius:9px;overflow:hidden}.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--b));transition:width .4s}
+.exp{margin-top:12px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--c) 22%,var(--card))}
+.tag{display:inline-block;padding:3px 10px;border-radius:99px;background:color-mix(in srgb,var(--a) 14%,var(--card));color:var(--a);font-size:13px;font-weight:700}
+.big{font:800 64px Unbounded,sans-serif;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.li{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}
+.li:last-child{border:0}.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:var(--a);flex:none}
+.x{border:0;background:none;color:var(--bad);cursor:pointer;font-size:18px}
+.chat{height:380px;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:6px}
+.m{max-width:80%;padding:9px 13px;border-radius:16px 16px 16px 4px;background:var(--line);animation:pop .3s}
+.m.me{align-self:flex-end;background:var(--a);color:#fff;border-radius:16px 16px 4px 16px}
+.m small{display:block;opacity:.7;font-size:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;z-index:9;opacity:0;pointer-events:none;transition:.3s}
+.toast.on{opacity:1}
+.conf{position:fixed;top:-10px;width:10px;height:14px;z-index:9;animation:fall 2s linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+@media(max-width:760px){.hero,.two{grid-template-columns:1fr}.mol{max-width:280px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+#gate{display:none;max-width:420px;margin:40px auto}body.out #gate{display:block}body.out nav,body.out .who,body.out section.on{display:none}
+</style></head><body class="out">
+<header><div class="bar"><div class="logo">Kimyo<i>Lab</i></div>
+<nav id="nav"><button data-t="home" class="on">Bosh sahifa</button><button data-t="test">Test yechish</button><button data-t="bank" id="nb" hidden>Savollar</button><button data-t="stu">Oʻquvchilar</button><button data-t="chat">Suhbat</button><button data-t="board">Natijalar</button></nav>
+<div class="who"><span class="tag" id="me"></span><button class="ic" id="lo">Chiqish</button><button class="ic" id="th" aria-label="Rejimni almashtirish">◐</button></div></div></header>
+<main><div class="card" id="gate"><h2 style="font-size:24px">Kirish</h2><form id="lf"><label>Login</label><input id="l-u" autocomplete="username" autocapitalize="none" required><label>Parol</label><input id="l-p" type="password" autocomplete="current-password" required><div class="row"><button class="btn" type="submit">Kirish</button></div><p id="l-e" style="color:var(--bad)" role="alert"></p></form></div>
+<section id="home" class="on">
+<div class="hero"><div><h1>Kimyoni <span>tajriba</span> kabi oʻrganing</h1><p>Test yeching, javobni darhol tekshiring, tushuntirishni oʻqing va sinfdoshlar bilan suhbatlashing. Ustoz savollarni qoʻshadi, siz esa istalgan vaqtda yechasiz.</p>
+<div class="row"><button class="btn" data-go="test">Testni boshlash</button><button class="btn alt" data-go="chat">Suhbatga kirish</button></div></div>
+<div class="mol"><svg viewBox="0 0 400 400" aria-label="Suv molekulasi animatsiyasi"><circle cx="200" cy="200" r="150" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 8"/>
+<g class="orb"><circle cx="200" cy="50" r="9" fill="var(--c)"/></g><g class="orb r"><circle cx="350" cy="200" r="7" fill="var(--b)"/></g>
+<g class="atom"><line x1="200" y1="200" x2="120" y2="270" stroke="var(--mut)" stroke-width="6"/><line x1="200" y1="200" x2="280" y2="270" stroke="var(--mut)" stroke-width="6"/>
+<circle cx="200" cy="200" r="52" fill="var(--b)"/><text x="200" y="213" text-anchor="middle" font-size="36" font-weight="800" fill="#fff" font-family="Unbounded,sans-serif">O</text></g>
+<g class="atom h2"><circle cx="120" cy="270" r="32" fill="var(--a)"/><text x="120" y="281" text-anchor="middle" font-size="26" font-weight="800" fill="#fff" font-family="Unbounded,sans-serif">H</text><circle cx="280" cy="270" r="32" fill="var(--a)"/><text x="280" y="281" text-anchor="middle" font-size="26" font-weight="800" fill="#fff" font-family="Unbounded,sans-serif">H</text></g>
+<circle class="bub" cx="90" cy="340" r="8" fill="var(--c)"/><circle class="bub" style="animation-delay:-2s" cx="320" cy="350" r="11" fill="var(--b)"/><circle class="bub" style="animation-delay:-4s" cx="200" cy="360" r="6" fill="var(--a)"/></svg></div></div>
+<div class="stats" id="stats"></div>
+<h2>Nimalar bor?</h2>
+<div class="grid"><div class="card"><h3>Testlar</h3><p>Mavzu tanlang, savollarga javob bering. Toʻgʻri javob yashil, xato qizil boʻladi va tushuntirish chiqadi.</p></div>
+<div class="card"><h3>Savollar bazasi</h3><p>Oʻqituvchi savol, 4 ta variant, rasm va tushuntirish qoʻshadi. Hammasi saqlanadi.</p></div>
+<div class="card"><h3>Oʻquvchilar va suhbat</h3><p>Oʻquvchilarni roʻyxatga oling, ballarini kuzating va umumiy suhbatda savol-javob qiling.</p></div></div>
+</section>
+<section id="test"><h2>Test yechish</h2><div id="tbox"></div></section>
+<section id="bank"><h2>Savollar bazasi</h2><div class="two"><div class="card"><h3>Yangi savol</h3>
+<label>Mavzu</label><input id="n-topic" placeholder="Masalan: Reaksiyalar" list="tl"><datalist id="tl"></datalist>
+<label>Savol</label><textarea id="n-q" rows="2"></textarea>
+<label>Variantlar (toʻgʻrisini belgilang)</label><div id="n-o"></div>
+<label>Tushuntirish (ixtiyoriy)</label><input id="n-e">
+<label>Rasm (ixtiyoriy)</label><input type="file" id="n-i" accept="image/*">
+<div class="row"><button class="btn" id="n-add">Savolni qoʻshish</button></div></div>
+<div class="card"><h3 id="bk-h">Barcha savollar</h3><div id="bk"></div></div></div></section>
+<section id="stu"><h2>Oʻquvchilar</h2><div class="two"><div class="card" id="reg"></div><div class="card" id="sl"></div></div></section>
+<section id="chat"><h2>Umumiy suhbat</h2><div class="card"><div class="chat" id="cb"></div>
+<div class="row" style="margin-top:12px"><input id="ct" placeholder="Xabar yozing..." style="flex:1;min-width:160px"><button class="btn pink" id="cs">Yuborish</button></div></div></section>
+<section id="board"><h2>Natijalar</h2><div class="card" id="bd"></div></section>
+</main><div class="toast" id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const col=n=>`hsl(${[...n].reduce((a,c)=>a+c.charCodeAt(0)*7,0)%360} 65% 48%)`;
+const LS={g:k=>{try{return localStorage.getItem(k)}catch(e){return null}},s:(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}};
+let TK=LS.g('kl-t'),ME=null,QS=[],ST=[],CH=[],S=null,img='',tm=null,tc=0,ck='';
+try{ME=JSON.parse(LS.g('kl-m'))}catch(e){}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>x.classList.remove('on'),2600)}
+async function api(p,m,b){const r=await fetch('/api/'+p,{method:m||'GET',headers:{'content-type':'application/json',...(TK?{authorization:'Bearer '+TK}:{})},body:b?JSON.stringify(b):undefined});
+ const j=await r.json().catch(()=>({}));if(r.status===401&&p!=='login'){out();throw new Error('Qayta kiring')}if(!r.ok)throw new Error(j.error||'Xatolik');return j}
+const fail=e=>toast(e.message||'Xatolik');
+const topics=()=>[...new Set(QS.map(q=>q.topic))];
+const isT=()=>ME&&ME.role==='teacher';
+function out(){TK=null;ME=null;S=null;LS.s('kl-t',null);LS.s('kl-m',null);clearInterval(tm);document.body.classList.add('out')}
+function start(){document.body.classList.remove('out');$('#nb').hidden=!isT();$('#me').textContent=ME.name;show('home');load();clearInterval(tm);tm=setInterval(tick,4000)}
+function tick(){tc++;if($('#chat').classList.contains('on'))loadChat();else if(tc%5===0){loadChat();if(!S)load()}}
+function show(t){$$('section').forEach(s=>s.classList.toggle('on',s.id===t));$$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));scrollTo(0,0)}
+$('#nav').onclick=e=>{if(e.target.dataset.t)show(e.target.dataset.t)};
+$$('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));
+$('#th').onclick=()=>{const r=document.documentElement,d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);r.dataset.theme=d?'light':'dark'};
+$('#lf').onsubmit=async e=>{e.preventDefault();$('#l-e').textContent='';
+ try{const j=await api('login','POST',{login:$('#l-u').value,password:$('#l-p').value});TK=j.token;ME={login:j.login,name:j.name,role:j.role};LS.s('kl-t',TK);LS.s('kl-m',JSON.stringify(ME));$('#l-p').value='';start()}catch(er){$('#l-e').textContent=er.message}};
+$('#lo').onclick=out;
+async function load(){try{const d=await api('data');QS=d.questions;ST=d.students;stats();$('#tl').innerHTML=topics().map(t=>`<option value="${esc(t)}">`).join('');renderBank();renderReg();renderList();renderBoard();if(!S)renderTest();loadChat()}catch(e){if(TK)fail(e)}}
+function stats(){const tot=ST.reduce((a,s)=>a+s.count,0);
+ $('#stats').innerHTML=[[QS.length,'savol'],[topics().length,'mavzu'],[ST.length,'oʻquvchi'],[tot,'topshirilgan test']].map(([n,l])=>`<div class="card stat"><b>${n}</b><span>${l}</span></div>`).join('')}
+/* test */
+function renderTest(){const b=$('#tbox');
+ if(!QS.length){b.innerHTML='<div class="card"><p>Hali savollar yoʻq. Ustoz savol qoʻshgach bu yerda koʻrinadi.</p></div>';return}
+ if(!S){b.innerHTML=`<div class="card">${isT()?'<p class="exp">Ustoz sifatida test natijalari saqlanmaydi.</p>':''}<label>Mavzu</label><select id="t-t"><option value="">Barcha mavzular</option>${topics().map(t=>`<option>${esc(t)}</option>`).join('')}</select><label>Savollar soni</label><select id="t-n"><option>5</option><option>10</option><option>20</option></select><div class="row"><button class="btn" id="t-go">Boshlash</button></div></div>`;
+  $('#t-go').onclick=()=>{const t=$('#t-t').value,n=+$('#t-n').value;const l=QS.filter(q=>!t||q.topic===t).sort(()=>Math.random()-.5).slice(0,n);if(!l.length)return toast('Bu mavzuda savol yoʻq');S={l,i:0,s:0,lock:false,t:t||'Aralash'};renderTest()};return}
+ if(S.i>=S.l.length){const p=Math.round(S.s/S.l.length*100);
+  b.innerHTML=`<div class="card" style="text-align:center"><div class="big">${p}%</div><h3>${S.s} / ${S.l.length} toʻgʻri</h3><p>${p>=80?'Ajoyib natija!':p>=50?'Yomon emas, yana mashq qiling.':'Mavzuni takrorlab, qayta urinib koʻring.'}</p><div class="row" style="justify-content:center"><button class="btn" id="t-re">Qayta yechish</button><button class="btn alt" id="t-bd">Natijalar</button></div></div>`;
+  $('#t-re').onclick=()=>{S=null;renderTest()};$('#t-bd').onclick=()=>show('board');if(p>=80)confetti();return}
+ const q=S.l[S.i];
+ b.innerHTML=`<div class="card"><div class="prog"><i style="width:${S.i/S.l.length*100}%"></i></div><p style="color:var(--mut)">Savol ${S.i+1} / ${S.l.length} <span class="tag">${esc(q.topic)}</span></p>${q.img?`<img class="q-img" src="${esc(q.img)}" alt="Savol rasmi">`:''}<div class="q-t">${esc(q.q)}</div><div id="ops">${q.o.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o)}</button>`).join('')}</div><div id="fb"></div></div>`;
+ $('#ops').onclick=e=>{const k=e.target.closest('.opt');if(!k||S.lock)return;S.lock=true;const i=+k.dataset.i,ok=i===q.a;
+  $$('.opt').forEach((x,j)=>{x.disabled=true;if(j===q.a)x.classList.add('ok');else if(j===i)x.classList.add('bad')});if(ok)S.s++;
+  $('#fb').innerHTML=`<div class="exp"><b>${ok?'Toʻgʻri!':'Xato.'}</b> Toʻgʻri javob: ${esc(q.o[q.a])}.${q.e?'<br>'+esc(q.e):''}</div><div class="row"><button class="btn" id="nx">${S.i+1<S.l.length?'Keyingi savol':'Natijani koʻrish'}</button></div>`;
+  $('#nx').onclick=()=>{S.i++;S.lock=false;
+   if(S.i>=S.l.length&&!isT())api('result','POST',{topic:S.t,s:S.s,n:S.l.length}).then(load).catch(fail);
+   renderTest()}}}
+function confetti(){for(let i=0;i<40;i++){const d=document.createElement('i');d.className='conf';d.style.cssText=`left:${Math.random()*100}vw;background:${['#5b3df5','#ff3d81','#ffc233','#12a36b'][i%4]};animation-delay:${Math.random()*.6}s`;document.body.append(d);setTimeout(()=>d.remove(),2800)}}
+/* savollar (ustoz) */
+$('#n-o').innerHTML=[0,1,2,3].map(i=>`<div class="row" style="margin:6px 0;flex-wrap:nowrap"><input type="radio" name="ok" value="${i}" ${i?'':'checked'} style="width:auto" aria-label="Toʻgʻri javob ${i+1}"><input class="no" placeholder="Variant ${i+1}"></div>`).join('');
+$('#n-i').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const m=new Image();m.onload=()=>{const k=Math.min(1,480/m.width),c=document.createElement('canvas');c.width=m.width*k;c.height=m.height*k;c.getContext('2d').drawImage(m,0,0,c.width,c.height);img=c.toDataURL('image/jpeg',.6);if(img.length>240000){img='';toast('Rasm juda katta, boshqasini tanlang')}else toast('Rasm tayyor')};m.src=r.result};r.readAsDataURL(f)};
+$('#n-add').onclick=()=>{const o=$$('.no').map(x=>x.value.trim()),q=$('#n-q').value.trim();
+ if(!q||o.some(x=>!x))return toast('Savol va 4 ta variantni toʻldiring');
+ api('questions','POST',{topic:$('#n-topic').value.trim()||'Umumiy',q,o,a:+document.querySelector('[name=ok]:checked').value,e:$('#n-e').value.trim(),img}).then(()=>{img='';['#n-q','#n-e','#n-i'].forEach(s=>$(s).value='');$$('.no').forEach(x=>x.value='');toast('Savol qoʻshildi');load()}).catch(fail)};
+function renderBank(){$('#bk-h').textContent=`Barcha savollar (${QS.length})`;$('#bk').innerHTML=QS.map(q=>`<div class="li"><div><span class="tag">${esc(q.topic)}</span><div>${esc(q.q)}</div></div><button class="x" data-d="${q.id}" aria-label="Oʻchirish">✕</button></div>`).join('')||'<p>Savollar yoʻq. Chapdagi shakldan qoʻshing.</p>'}
+$('#bk').onclick=e=>{const d=e.target.dataset.d;if(d&&confirm('Savol oʻchirilsinmi?'))api('questions/'+d,'DELETE').then(load).catch(fail)};
+/* oquvchilar */
+function renderReg(){const r=$('#reg');if(['#s-n','#s-l','#s-p'].some(s=>$(s)&&$(s).value))return;
+ if(isT())r.innerHTML='<h3>Oʻquvchi hisobi yaratish</h3><label>Ism familiya</label><input id="s-n" maxlength="40"><label>Login (kichik harf, raqam)</label><input id="s-l" maxlength="20" autocapitalize="none"><label>Parol (kamida 4 belgi)</label><input id="s-p" maxlength="40"><div class="row"><button class="btn" id="s-add">Yaratish</button></div><p style="color:var(--mut);font-size:14px">Mavjud login yozsangiz, parol va ism yangilanadi.</p>';
+ else{const s=ST.find(x=>x.login===ME.login)||{count:0,avg:0};r.innerHTML=`<h3>${esc(ME.name)}</h3><p>Login: ${esc(ME.login)}<br>${s.count} ta test, oʻrtacha ${s.avg}%</p>`}}
+$('#reg').onclick=e=>{if(e.target.id!=='s-add')return;
+ api('students','POST',{name:$('#s-n').value,login:$('#s-l').value,password:$('#s-p').value}).then(()=>{['#s-n','#s-l','#s-p'].forEach(s=>$(s).value='');toast('Hisob saqlandi');load()}).catch(fail)};
+function renderList(){$('#sl').innerHTML=ST.map(s=>`<div class="li"><div style="display:flex;gap:12px;align-items:center"><div class="av" style="background:${col(s.name)}">${esc(s.name[0].toUpperCase())}</div><div><b>${esc(s.name)}</b><div style="color:var(--mut);font-size:14px">${isT()?'login: '+esc(s.login)+' · ':''}${s.count} ta test, oʻrtacha ${s.avg}%</div></div></div>${isT()?`<button class="x" data-r="${esc(s.login)}" aria-label="Oʻchirish">✕</button>`:''}</div>`).join('')||'<p>Hali oʻquvchi yoʻq.</p>'}
+$('#sl').onclick=e=>{const r=e.target.dataset.r;if(r&&confirm('Oʻquvchi oʻchirilsinmi?'))api('students/'+r,'DELETE').then(load).catch(fail)};
+/* chat */
+async function loadChat(){try{CH=(await api('chat')).messages;const k=CH.map(m=>m.id).join();if(k!==ck){ck=k;renderChat()}}catch(e){}}
+function renderChat(){const c=$('#cb');c.innerHTML=CH.map(m=>`<div class="m${m.u===ME.login?' me':''}"><small>${esc(m.n)}${m.r==='teacher'?' (ustoz)':''} · ${new Date(m.t).toLocaleTimeString('uz',{hour:'2-digit',minute:'2-digit'})}</small>${esc(m.x)}${isT()?` <button class="x" data-m="${m.id}" aria-label="Oʻchirish">✕</button>`:''}</div>`).join('')||'<p style="color:var(--mut)">Hali xabar yoʻq. Birinchi boʻlib yozing.</p>';c.scrollTop=1e9}
+const send=()=>{const x=$('#ct').value.trim();if(!x)return;api('chat','POST',{text:x}).then(()=>{$('#ct').value='';loadChat()}).catch(fail)};
+$('#cs').onclick=send;$('#ct').onkeydown=e=>e.key==='Enter'&&send();
+$('#cb').onclick=e=>{const m=e.target.dataset.m;if(m)api('chat/'+m,'DELETE').then(()=>{ck='';loadChat()}).catch(fail)};
+/* natijalar */
+function renderBoard(){const l=[...ST].sort((a,b)=>b.avg-a.avg);
+ $('#bd').innerHTML=l.map((s,i)=>`<div class="li"><div style="display:flex;gap:12px;align-items:center"><div class="av" style="background:${col(s.name)}">${i+1}</div><div><b>${esc(s.name)}</b><div class="prog" style="width:160px;margin-top:6px"><i style="width:${s.avg}%"></i></div></div></div><div><b>${s.avg}%</b><div style="color:var(--mut);font-size:13px">${s.count} ta test</div></div></div>`).join('')||'<p>Natijalar test yechilgach koʻrinadi.</p>'}
+if(TK&&ME)start();
+</script></body></html>
